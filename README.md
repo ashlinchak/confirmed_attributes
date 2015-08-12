@@ -33,7 +33,7 @@ end
 And use it:
 
 ```ruby
-@user User.create email: "your_mail"
+@user = User.create email: "your_mail"
 
 @user.confirmable_attributes # => [:email]
 User.confirmable_attributes # => [:email]
