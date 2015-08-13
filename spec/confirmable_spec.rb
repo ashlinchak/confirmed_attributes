@@ -47,4 +47,30 @@ describe ConfirmedAttributes::Confirmable do
     end
   end
 
+  describe "#unconfirm" do
+    it "should not unverify attribute if record is not persisted" do
+      @user.confirm :email
+
+      expect(@user.unconfirm(:email)).to be false
+    end
+
+    it "should not unverify attribute if attribute wasn't confirmed" do
+      @user.save
+
+      expect(@user.unconfirm(:email)).to be false
+    end
+
+    it "should unverify attribute" do
+      @user.save
+      @user.confirm :email
+
+      expect(@user.confirmed_attribute?(:email)).to be true
+
+      expect(@user.unconfirm(:email)).to be true
+
+      expect(@user.confirmed_attribute?(:email)).to be false
+      expect(@user.confirmed_attributes.count).to eq 0
+    end
+  end
+
 end
