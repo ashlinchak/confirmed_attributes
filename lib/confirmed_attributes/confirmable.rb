@@ -43,6 +43,13 @@ module ConfirmedAttributes
         confirmed_attribute.verify(attribute_name)
       end
 
+      def unconfirm(attribute_name, user_id = nil)
+        array = confirmed_attributes.where(name: attribute_name, value: send(attribute_name))
+        return false if new_record? || array.empty?
+
+        !!array.delete_all
+      end
+
       def confirmable_attribute?(attribute_name)
         return false if attribute_name.blank?
 

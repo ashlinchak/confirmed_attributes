@@ -40,9 +40,11 @@ User.confirmable_attributes # => [:email]
 @user.confimed_attributes # => []
 @user.confirmed_attribute? :email # => false
 
-@user.confirm :email
+@user.confirm :email # => true
 @user.confimed_attributes # => [#<ConfirmedAttributes::Control:0x007f2eacd2f730> name: "email", value: "your_mail"...]
 @user.confirmed_attribute? :email # => true
+
+@user.unconfirm :email # => true
 ```
 
 Simple, yeah?
